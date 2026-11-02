@@ -1,0 +1,2 @@
+In the ``[tool.pytest.ini_options]`` table, passing a value that is not a string (e.g. a TOML array) to an ini option registered with ``type="string"`` is now deprecated and emits a :class:`~pytest.PytestRemovedIn10Warning`; it will become an error in pytest 10.
+See :ref:`ini-string-non-str-value`.
