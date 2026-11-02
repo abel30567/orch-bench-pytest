@@ -15,6 +15,31 @@ Below is a complete list of all pytest features which are considered deprecated.
 :class:`~pytest.PytestWarning` or subclasses, which can be filtered using :ref:`standard warning filters <warnings>`.
 
 
+.. _ini-string-non-string-value:
+
+Non-string values for ``string``-typed ini options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. deprecated:: 9.1
+
+In the ``[tool.pytest.ini_options]`` table of ``pyproject.toml``, setting an
+option registered with ``type="string"`` to a TOML array was silently accepted,
+and :meth:`config.getini() <pytest.Config.getini>` returned a list instead of a string:
+
+.. code-block:: toml
+
+    [tool.pytest.ini_options]
+    # Deprecated
+    my_string_option = ["a", "b"]
+
+    # Use instead
+    my_string_option = "a b"
+
+This now emits a :class:`~pytest.PytestRemovedIn10Warning`, and will become an
+error in pytest 10, consistent with how such values are already rejected in
+``[tool.pytest]`` and ``pytest.toml`` configuration.
+
+
 .. _callspec2-renamed:
 
 ``_pytest.python.CallSpec2`` renamed to ``CallSpec``
